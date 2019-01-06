@@ -9,8 +9,9 @@ import {
   View,
 } from 'react-native';
 
-export default class HomeScreen extends React.Component {
+import test from '../constants/data.json';
 
+export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -19,7 +20,27 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Home screen here</Text>
+        <NumberList list={test}/>
       </View>
+    );
+  }
+}
+
+function NumberList(props){
+  const listView = props.list.map((item) =>
+    <Text key={item.name}>
+      {item.name}
+    </Text>
+  );
+  return (
+    listView
+  )
+}
+
+class Data extends React.Component {
+  render(){
+    return(
+      <Text>{this.props.name}</Text>
     );
   }
 }
