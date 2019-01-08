@@ -7,9 +7,11 @@ import {
   Text,
   TouchableOpacity,
   View,
+  AsyncStorage,
 } from 'react-native';
-
+import { Button } from 'react-native-elements';
 import test from '../constants/data.json';
+import { get, set } from '../data/AppData.js';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -19,18 +21,27 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Button onPress={Test2}/>
         <Text>Home screen here</Text>
-        <NumberList list={test}/>
+        <ExerciseList list={test}/>
+        <Button onPress={Test}/>
       </View>
     );
   }
+
 }
 
-function NumberList(props){
+  function Test2(){
+    get("testkey");
+  }
+
+  function Test(){
+    set("testkey", "dis tings doe");
+  }
+
+function ExerciseList(props){
   const listView = props.list.map((item) =>
-    <Text key={item.name}>
-      {item.name}
-    </Text>
+    <Button title={item.name} key={item.name}/>
   );
   return (
     listView
@@ -45,9 +56,14 @@ class Data extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
+var styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
     backgroundColor: '#00ff00',
   },
+  button: {
+    backgroundColor: '#fff',
+  }
 });
