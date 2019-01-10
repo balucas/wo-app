@@ -30,18 +30,20 @@ export default class HomeScreen extends React.Component {
   }
 
 }
+  var counter = 300;
 
-  function Test2(){
-    get("testkey");
+  async function Test2(){
+    var a = await get("name");
+    console.log("hs name is: " + a);
   }
 
-  function Test(){
-    set("testkey", "dis tings doe");
+  function Test(name){
+    set("name", name);
   }
 
 function ExerciseList(props){
   const listView = props.list.map((item) =>
-    <Button title={item.name} key={item.name}/>
+    <Button title={item.name} key={item.name} onPress={() => Test(item.name)}/>
   );
   return (
     listView
