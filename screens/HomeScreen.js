@@ -8,8 +8,11 @@ import {
   TouchableOpacity,
   View,
   AsyncStorage,
+  TouchableHighlight,
 } from 'react-native';
 import { Button } from 'react-native-elements';
+import WorkoutModal from '../modals/WorkoutModal.js';
+
 import test from '../constants/data.json';
 import { get, set } from '../data/AppData.js';
 
@@ -21,10 +24,7 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Button onPress={Test2}/>
-        <Text>Home screen here</Text>
-        <ExerciseList list={test}/>
-        <Button onPress={Test}/>
+        <WorkoutModal/>
       </View>
     );
   }
@@ -63,9 +63,9 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    backgroundColor: '#00ff00',
+    backgroundColor: '#fff',
   },
   button: {
-    backgroundColor: '#fff',
+
   }
 });
