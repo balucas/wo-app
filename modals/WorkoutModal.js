@@ -35,6 +35,12 @@ export default class WorkoutModal extends Component {
           }}>
           <View style={{marginTop: 22}}>
               <Text>Hello World!</Text>
+              <ScrollView horizontal={true}>
+                <Button title='Test'/>
+                  <Button title='Test'/>
+                    <Button title='Test'/>
+                      <Button title='Test'/>
+              </ScrollView>
 
               <View
                 style={{
@@ -43,11 +49,11 @@ export default class WorkoutModal extends Component {
                 }}>
                 <Button
                   title='Save'
-                  buttonStyle={styles.button}
+                  buttonStyle={styles.actionButton}
                 />
                 <Button
                   title='Cancel'
-                  buttonStyle={styles.button}
+                  buttonStyle={styles.actionButton}
                   onPress={() => {
                     this.setModalVisible(!this.state.modalVisible);
                   }}/>
@@ -67,7 +73,7 @@ export default class WorkoutModal extends Component {
 }
 
 const styles = StyleSheet.create({
-  button:{
+  actionButton:{
     width: 100,
     margin: 5
   }
