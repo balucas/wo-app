@@ -13,5 +13,26 @@
   },
   {
     "name": "Barbell Row"
+  },
+  {
+    "name": "Incline Curl"
+  },
+  {
+    "name": "Biceps Curl"
+  },
+  {
+    "name": "Chest Fly"
+  },
+  {
+    "name": "Upright Row"
+  },
+  {
+    "name": "Lateral Raise"
+  },
+  {
+    "name": "Shoulder Press"
+  },
+  {
+    "name": "Triceps Press"
   }
 ]
