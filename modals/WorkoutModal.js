@@ -23,15 +23,15 @@ import { get, set } from '../data/AppData.js';
 export default class WorkoutModal extends Component {
   state = {
     modalVisible: false,
-    titleText: 'Hello World saved',
+    selectedExercise: 'Hello World saved',
   };
 
   setModalVisible(isVisible){
     this.setState({modalVisible: isVisible});
   }
 
-  setTitleText(text){
-    this.setState({titleText: text});
+  setSelectedEx(text){
+    this.setState({selectedExercise: text});
   }
 
   render(){
@@ -51,7 +51,8 @@ export default class WorkoutModal extends Component {
                 showHorizontalScrollIndicator={false}>
                 <ExerciseList
                   list={test}
-                  that={this}/>
+                  super={this}
+                  />
               </ScrollView>
 
               <Input
@@ -86,22 +87,39 @@ export default class WorkoutModal extends Component {
   }
 }
 
-function setSelected(exName){
-  console.log(exName);
-  titleText = exName;
-}
-
-function ExerciseList(props){
+function CreateExerciseList(props){
   const listView = props.list.map((item) =>
     <ExerciseButton name={item.name}
             key={item.name}
-            // onPress={() => {props.that.setTitleText(item.name);
-            //                 }}
+            exerciseList={props.that}
+            selectedName={props.selectedName}
             />
   );
   return (
     listView
   )
+}
+
+class ExerciseList extends Component {
+
+  state = {
+    selected: '',
+  };
+
+  _setSelected (name) {
+    this.setState({selected: name});
+    this.props.super.setSelectedEx(name);
+  }
+
+  render(){
+    return(
+      <CreateExerciseList
+        list={test}
+        that={this}
+        selectedName={this.state.selected}
+      />
+    )
+  }
 }
 
 class ExerciseButton extends Component {
@@ -119,8 +137,11 @@ class ExerciseButton extends Component {
     return(
       <Button title={this.props.name}
               key={this.props.name}
-              buttonStyle={this.state.buttonStyle}
-              onPress={() => {this._buttonPressed()}}/> 
+              buttonStyle={this.props.name == this.props.selectedName? styles.exerciseButtonSelected : styles.exerciseButton }
+              onPress={() => {
+                this._buttonPressed();
+                this.props.exerciseList._setSelected(this.props.name);
+              }}/>
     )
   }
 }
@@ -146,7 +167,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 2,
     margin: 2,
-    backgroundColor: '#fff'
+    backgroundColor: '#51abff'
   }
 });
 
