@@ -13,7 +13,6 @@ import {
 import { Button } from 'react-native-elements';
 import WorkoutModal from '../modals/WorkoutModal.js';
 
-import test from '../constants/data.json';
 import { get, set } from '../data/AppData.js';
 
 export default class HomeScreen extends React.Component {

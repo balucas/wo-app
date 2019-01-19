@@ -23,3 +23,11 @@ export async function set(key, value){
     // Error saving data
   }
 }
+
+/*  Data to persist:
+      -Individual Exercise records
+      -Individual Workout records (Daily)
+      -List of Exercise records that exist
+
+
+*/

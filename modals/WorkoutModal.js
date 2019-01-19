@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Icon} from 'react';
 import {
   Button,
   Input,
@@ -17,14 +17,16 @@ import {
   Modal,
 } from 'react-native';
 
-import test from '../constants/data.json';
+import data from '../constants/Exercises.json';
 import { get, set } from '../data/AppData.js';
 
 export default class WorkoutModal extends Component {
   state = {
     modalVisible: false,
-    selectedExercise: 'Hello World saved',
+    selectedExercise: '',
+    selectedWeight: 100
   };
+
 
   setModalVisible(isVisible){
     this.setState({modalVisible: isVisible});
@@ -34,9 +36,28 @@ export default class WorkoutModal extends Component {
     this.setState({selectedExercise: text});
   }
 
+  incrSelectedWeight(){
+    var curr = this.state.selectedWeight;
+    this.setState({selectedWeight: curr + 5});
+  }
+
+  decrSelectedWeight(){
+    var curr = this.state.selectedWeight;
+    this.setState({selectedWeight: curr - 5});
+  }
+
+  dispExercise(){
+    console.log(this.state.selectedExercise + ' @' + this.state.selectedWeight);
+    console.log(new Date());
+  }
+
+
+
   render(){
     return(
-      <View style={{marginTop: 22}}>
+      <View style={{
+          marginTop: 22,
+        }}>
         <Modal
           animationType="slide"
           transparent={false}
@@ -47,24 +68,57 @@ export default class WorkoutModal extends Component {
           <View style={{marginTop: 22}}>
               <Text>{this.state.titleText}</Text>
               <ScrollView
+                style={{marginBottom:10}}
                 horizontal={true}
                 showHorizontalScrollIndicator={false}>
                 <ExerciseList
-                  list={test}
+                  list={data}
                   super={this}
                   />
               </ScrollView>
 
-              <Input
-                placeholder='Enter Weight'/>
+              <View style={styles.rowView}>
+                <Button
+                  title=''
+                  buttonStyle={styles.incrDecrButton}
+                  icon={{
+                    name: 'remove',
+                    color: '#fff'
+                  }}
+                  onPress={() => {this.decrSelectedWeight()}}>
+
+                </Button>
+
+                <Text h1
+                  style={{
+                    margin: 10,
+                    fontSize: 20,
+
+                  }}>
+                  {this.state.selectedWeight}
+                </Text>
+
+                <Button
+                  title=''
+                  buttonStyle={styles.incrDecrButton}
+                  icon={{
+                    name: 'add',
+                    color: '#fff'
+                  }}
+                  onPress={() => {this.incrSelectedWeight()}}>
+
+                </Button>
+
+              </View>
+
               <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center'
-                }}>
+                style={styles.rowView}>
                 <Button
                   title='Save'
                   buttonStyle={styles.actionButton}
+                  onPress={() => {
+                    this.dispExercise();
+                  }}
                 />
                 <Button
                   title='Cancel'
@@ -114,7 +168,7 @@ class ExerciseList extends Component {
   render(){
     return(
       <CreateExerciseList
-        list={test}
+        list={data}
         that={this}
         selectedName={this.state.selected}
       />
@@ -147,6 +201,17 @@ class ExerciseButton extends Component {
 }
 
 const styles = StyleSheet.create({
+
+  incrDecrButton:{
+    width: 40,
+    height: 40,
+  },
+
+  rowView:{
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+
   actionButton:{
     width: 100,
     margin: 5
