@@ -16,9 +16,13 @@ import {
   TouchableHighlight,
   Modal,
 } from 'react-native';
+// import Datastore from 'react-native-local-mongodb';
 
 import data from '../constants/Exercises.json';
 import { get, set } from '../data/AppData.js';
+
+var Datastore = require('react-native-local-mongodb')
+, db = new Datastore();
 
 export default class WorkoutModal extends Component {
   state = {
@@ -47,8 +51,28 @@ export default class WorkoutModal extends Component {
   }
 
   dispExercise(){
+    // console.log(this.state.selectedExercise + ' @' + this.state.selectedWeight);
+    // console.log(new Date());
+    db.find({foo: 'bar'}, function(err, docs){
+      console.log('find callbback: ' + docs);
+      console.log(JSON.stringify(docs));
+      // console.log(docs.exercise);
+      // console.log(docs.weight);
+    })
+
+  }
+
+  saveExercise(){
     console.log(this.state.selectedExercise + ' @' + this.state.selectedWeight);
-    console.log(new Date());
+    var exercise = {  exercise: this.state.selectedExercise,
+                      weight: this.state.selectedWeight,
+                      foo: 'bar'};
+    db.insert(exercise, function(err, newDoc){
+      console.log('insert callback: ');
+      console.log('err: ' + JSON.stringify(err));
+      console.log('newDoc: ' + JSON.stringify(newDoc));
+      console.log('____________________END___________________');
+    })
   }
 
 
@@ -115,6 +139,13 @@ export default class WorkoutModal extends Component {
                 style={styles.rowView}>
                 <Button
                   title='Save'
+                  buttonStyle={styles.actionButton}
+                  onPress={() => {
+                    this.saveExercise();
+                  }}
+                />
+                <Button
+                  title='Display'
                   buttonStyle={styles.actionButton}
                   onPress={() => {
                     this.dispExercise();
